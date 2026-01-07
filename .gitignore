@@ -70,7 +70,4 @@ node_modules/
 *.tmp
 settings/
 
-.smx_secrete_key
-.smx_secret_key
-fernet.key
-superadmin_credentials.txt
+syntaxmatrixdir/
