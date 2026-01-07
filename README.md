@@ -3,7 +3,7 @@
 
 <!-- LOGO PLACEHOLDER -->
 <p align="center">
-  <img src="logo.png" alt="SyntaxMatrix Logo" width="150"/><br>
+  <img src="syntaxmatrix/static/icons/logo.png" alt="SyntaxMatrix Logo" width="150"/><br>
   <em>Add your project logo above. Recommended size: 150x150px.</em>
 </p>
 
@@ -40,7 +40,7 @@ AI developers, educators, ML/DS researchers, enterprise engineering teams, and a
   ```bash
   pip install syntaxmatrix
   # For analytics, ML, and advanced dashboard features:
-  pip install "syntaxmatrix[analysis]"
+  pip install syntaxmatrix
   ```
 - **Full-stack:**  
   Built-in UI, backend, vector storage, admin panel, and analytics dashboard
