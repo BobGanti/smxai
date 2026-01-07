@@ -69,3 +69,7 @@ node_modules/
 *.swo
 *.tmp
 settings/
+
+.smx_secrete_key
+fernet.key
+superadmin_credentials.txt
