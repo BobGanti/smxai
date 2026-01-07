@@ -26,7 +26,6 @@ pyproject.toml
 *.log
 *.sqlite3
 *.db
-syntaxmatrix/db.py
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
