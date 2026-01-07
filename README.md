@@ -658,5 +658,3 @@ Common extension points:
 
 ---
 
-**Licence:** (add your licence here)  
-**Maintainer:** (add your team contact here)
