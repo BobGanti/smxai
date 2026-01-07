@@ -276,24 +276,18 @@ pip install -e .
 
 ### 3) Run the client instance
 
-If your client instance is driven by `app.py`:
-
 ```bash
 python app.py
 ```
 
-Or if you use the SyntaxMatrix runner:
-
-```bash
-python -c "import syntaxmatrix as smx; smx.run()"
-```
-
 ### 4) First run checklist (Admin setup)
-1. Open the app in your browser.
-2. Sign in with an admin account (or create the initial admin, depending on your instance setup).
+1. Open the app in your browser. 
+NB: At first launch, your instance of SyntaxMatrix will the "syntaxmatrixdir" folder amd its content in to the client project. Inside this folder you will find the "superadmin.txt" file which contains the login credentials for your SyntaxMatrix instance.
+2. Sign in with the provided credentials into your superadmin account.
 3. In the Admin Panel:
-   - configure model provider settings
-   - store API keys/secrets (see next section)
+   - create a user and give it "admin" previlege. Use this admin to for most operations on your system. You can create other accounts for your staff and give different access levels. All accounts have limited access and the "admin" is the closest to the superadmin with the most access.
+   - configure models (LLM/Embedding) and create your team of experts (mix and match providers) per your needs
+   - store / remove API keys/secrets (see next section)
    - upload system/company docs for SMPV
    - generate and publish initial pages
 
@@ -311,7 +305,7 @@ Instead:
 This model is useful for:
 - teams managing multiple client instances
 - avoiding accidental secret commits
-- supporting admin-managed rotations without redeploying code
+- supporting admin managed rotations without redeploying code
 
 **Operational guidance**
 - restrict Admin Panel access (roles + network controls)
@@ -327,7 +321,7 @@ This model is useful for:
 ```python
 import syntaxmatrix as smx
 
-def create_conversation(streaming=False):
+def create_conversation():
 
     chat_history = smx.get_chat_history() or []
     sid = smx.get_session_id()
@@ -396,7 +390,7 @@ def create_conversation(streaming=False):
 
 # Activate System Widgets (predefined)
 smx.text_input(key="user_query", id="user_query", label="Enter query", placeholder="Ask me anything ...")
-smx.button(key="submit_query", id="submit_query", label="Submit", callback=lambda: create_conversation(smx.stream()))
+smx.button(key="submit_query", id="submit_query", label="Submit", callback=lambda: create_conversation())
 smx.file_uploader("user_files", id="user_files", label="Upload PDF files:", accept_multiple_files=True)
 
 # Register Custom Widgets
@@ -404,7 +398,7 @@ def clear_chat():
     smx.clear_chat_history()
 
 # Call custom widget 'clear_chat' function
-smx.button("clear_chat", "clear_chat", "Clear", clear_chat)
+smx.button("clear_chat", "clear_chat", "Clear", clear_chat)   # (key, id, label, callback fm invoking smx backend APIs)
 
 
 app = smx.app
