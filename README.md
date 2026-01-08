@@ -19,6 +19,11 @@
   - [Hidden pages and “Read more” buttons](#hidden-pages-and-read-more-buttons)
 - [Key concepts](#key-concepts)
 - [Architecture](#architecture)
+  - [Architecture overview, Container diagrams](#architecture-diagrams)
+  - [RAG Workflow diagram](#rag-workflow)
+  - [Page Sequence diagram](#page-sequence)
+  - [Chat Sequence diagram](#chat-sequence)
+  - [Clent Data Model diagram](#client-data-models)
 - [Install and run](#install-and-run)
 - [Secrets and API keys](#secrets-and-api-keys)
 - [Client-app development](#client-app-development)
@@ -27,7 +32,14 @@
   - [Common patterns](#common-patterns)
 - [Admin Panel guide](#admin-panel-guide)
 - [Deployment](#deployment)
-- [Screenshots and tutorial placeholders](#screenshots-and-tutorial-placeholders)
+- [Screenshots and tutorial placeholders](#screenshots-and-tutorials)
+  - [Screenshots](#screenshots)
+    - [Model Profiles](#model-profiles)
+    - [Page generation and visibility](#page-generation-and-visibility)
+    - [Edit page](#edit-page)
+    - [System docs and Branding](#system-docs-and-branding)
+  - [Tutorial Videos](#tutorial-videos)
+  - [Getting started](#getting-started)
 - [Troubleshooting](#troubleshooting)
 - [Support and extensions](#support-and-extensions)
 ---
@@ -241,22 +253,40 @@ Client apps often support intent routing such as:
 5. Model responds (streaming or not)
 6. UI updates state (chat history, widgets)
 
-**Architecture Diagrams**
+### Architecture Diagrams**
+**Architecture Overview**
 
 ![Architecture diagram](docs/assets/screenshots/1-architecture.png)
 
+**Container Diagrams**
+
 ![Container diagram](docs/assets/screenshots/2-container.png)
 
+---
+
+### RAG Workflow
 **RAG Worflow**
+
 ![RAG Worflow diagram](docs/assets/screenshots/3-ragworkflow.png)
 
+---
+
+### Page Sequence
 **Page Sequence diagram**
+
 ![Page Sequence diagram](docs/assets/screenshots/4-pagesequence.png)
 
+---
+
+### Chat Sequence 
 **Chat Sequence diagram**
+
 ![Chat Sequence diagram](docs/assets/screenshots/5-chatsequence.png)
 
-**Cleit Data Models diagram**
+---
+
+### Client Data Models
+**Client Data Models diagram**
 ![Cleit Data Models diagram](docs/assets/screenshots/6-clientdatamodel.png)
 
 ---
@@ -269,12 +299,18 @@ Client apps often support intent routing such as:
 
 ### 1) Create and activate a virtual environment
 
+If you want a virtual environment named ".venv"
 ```bash
-# If you want a virvual environment named ".venv"
 python -m venv .venv
-# Windows - activate your virtual environment
+```
+Activate your virtual environment
+
+Windows:
+```bash
 .venv\Scripts\activate
-# macOS/Linux - activate your virtual environment
+```
+macOS/Linux:
+```bash
 source .venv/bin/activate
 ```
 
@@ -338,7 +374,7 @@ This model is useful for:
 
 ## Client-app development
 
-### Starter `app.py` (copy‑paste)
+### Starter `app.py`
 
 ```python
 import syntaxmatrix as smx
@@ -596,28 +632,31 @@ Admins can typically:
   ![Admin Panel](docs/assets/screenshots/ap-model-profiles.png)  
 
 
-- Page generation / visibility + ordering 
+#### Page generation and visibility
+- Page generation, visibility + ordering 
   ![Page generation](docs/assets/screenshots/ap-pages.png)  
 
+
+#### Edit page
 - Edit page canvas / drag-and-drop / media (search/upload/generate) 
   ![Edit canvas](docs/assets/screenshots/ap-edit-canvas.png)  
 
 
+#### System docs and branding
 - Document ingestion / branding configurations
   ![Doc ingestion](docs/assets/screenshots/ap-system-branding.png)  
   
 
 ### Tutorial videos
 
-#### Getting started (Admin + first page)  
+#### Getting started 
 
   [![Watch the Page Studio walkthrough](https://img.youtube.com/vi/PtGH1kaWm9M/hqdefault.jpg)](https://www.youtube.com/watch?v=PtGH1kaWm9M)
 
 
 
 #### Page Studio deep dive (sections, menu controls, “Read more”, and media)  
-  <!-- TODO: add video link -->
-  - Video: `https://www.youtube.com/watch?v=PtGH1kaWm9M`
+
 
  #### Uploading system docs + verifying retrieval  
 
