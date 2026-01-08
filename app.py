@@ -28,11 +28,10 @@ def create_conversation(streaming):
             if intent in ["hybrid", "user_docs"]:
                 user_hits = smiv_index.search(q_vec, top_k=3)
                 if not user_hits:
-                    if smx.enable_user_files():
-                        smx.error("""
-                            Please upload the pdf to discuss about. 
-                            Click the + button. \nOr contact support."
-                        """)                 
+                    smx.error("""
+                        Please upload the pdf to discuss about. Click the + button.\n
+                        Else contact your administrator."
+                    """)                 
                     return
                 results.append("\n### Personal Context (user uploads)\n")
                 for hit in user_hits:
@@ -43,7 +42,7 @@ def create_conversation(streaming):
             if intent in ["hybrid", "system_docs"]:
                 sys_hits = smx.smpv_search(q_vec, top_k=5)
                 if not sys_hits:
-                    smx.error("Please contact support.")
+                    smx.error("Please contact your administrator.")
                     return
                 results.append("### System Context (company docs)\n")
                 for hit in sys_hits:

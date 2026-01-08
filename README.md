@@ -32,6 +32,11 @@
 - [Support and extensions](#support-and-extensions)
 ---
 
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+---
+
 ## What SyntaxMatrix is
 
 **SyntaxMatrix** is a full‑stack Python framework that helps development teams **provision AI platforms for clients quickly**, without sacrificing control, privacy, or maintainability.
@@ -365,10 +370,10 @@ def create_conversation(streaming):
             if intent in ["hybrid", "user_docs"]:
                 user_hits = smiv_index.search(q_vec, top_k=3)
                 if not user_hits:
-                    if smx.enable_user_files():
-                        smx.error("""
-                            Please upload the pdf to discuss about. Click the + button or contact support.
-                        """)
+                    smx.error("""
+                        Please upload the pdf to discuss about. Click the + button.\n
+                        Else contact your administrator."
+                    """)                 
                     return
                 results.append("\n### Personal Context (user uploads)\n")
                 for hit in user_hits:
@@ -379,7 +384,7 @@ def create_conversation(streaming):
             if intent in ["hybrid", "system_docs"]:
                 sys_hits = smx.smpv_search(q_vec, top_k=5)
                 if not sys_hits:
-                    smx.error("Please contact support.")
+                    smx.error("Please contact your administrator.")
                     return
                 results.append("### System Context (company docs)\n")
                 for hit in sys_hits:
@@ -602,28 +607,25 @@ Admins can typically:
   ![Doc ingestion](docs/assets/screenshots/ap-system-branding.png)  
   
 
-### Tutorial videos (placeholders)
+### Tutorial videos
 
-- Getting started (Admin + first page)  
-  - Video: https://youtube.com/watch?v=PtGH1kaWm9M
-  
+#### Getting started (Admin + first page)  
+
   [![Watch the Page Studio walkthrough](https://img.youtube.com/vi/PtGH1kaWm9M/hqdefault.jpg)](https://www.youtube.com/watch?v=PtGH1kaWm9M)
 
 
 
-- Page Studio deep dive (sections, menu controls, “Read more”, and media)  
+#### Page Studio deep dive (sections, menu controls, “Read more”, and media)  
   <!-- TODO: add video link -->
   - Video: `https://www.youtube.com/watch?v=PtGH1kaWm9M`
 
-- Uploading system docs + verifying retrieval  
-  <!-- TODO: add video link -->
-  - Video: `https://...`
+ #### Uploading system docs + verifying retrieval  
 
-- Building a custom client `app.py` workflow  
-  <!-- TODO: add video link -->
-  - Video: `https://...`
+
+#### Building a custom client `app.py` workflow  
 
 ---
+
 
 ## Troubleshooting
 
@@ -665,4 +667,9 @@ Common extension points:
   - a screenshot or short video
 
 ---
+
+
+## License
+
+MIT © Bob Bobga Nti
 
