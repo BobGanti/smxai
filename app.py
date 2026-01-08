@@ -2,7 +2,7 @@ import syntaxmatrix as smx
 from settings.app_settings import *
 
 
-def create_conversation(streaming=False):
+def create_conversation(streaming):
 
     chat_history = smx.get_chat_history() or []
     sid = smx.get_session_id()
@@ -28,8 +28,14 @@ def create_conversation(streaming=False):
             if intent in ["hybrid", "user_docs"]:
                 user_hits = smiv_index.search(q_vec, top_k=3)
                 if not user_hits:
-                    # smx.error("No user documents found. Please upload files.")
-                    pass
+                    if smx.enable_user_files():
+                        smx.error("""
+                            Please upload the pdf to discuss about. 
+                            Click the + button.
+                        """)
+                    else: 
+                        smx.error("Please Contact support.")
+                    return
                 results.append("\n### Personal Context (user uploads)\n")
                 for hit in user_hits:
                     text = hit["metadata"]["chunk_text"].strip().replace("\n", " ")

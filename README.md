@@ -122,7 +122,7 @@ Page Studio combines:
 - **Menu controls** (visibility toggles, ordering/sorting, and navigation behaviour)
 - **Built-in media workflows** (search, upload, and AI image generation)
 
-This is a major selling point for businesses who want an AI platform that can evolve quickly without waiting for a full development sprint.
+This is a major architectural requirement for businesses who want an AI platform that can evolve quickly without waiting for a full development sprint.
 
 ### Generation, editing, and publishing
 
@@ -238,8 +238,12 @@ Client apps often support intent routing such as:
 
 **Architecture diagram**
 
-![Architecture diagram](docs/assets/architecture.png)
-
+![Architecture diagram](docs/assets/screenshots/1-architecture.png)
+![Container diagram](docs/assets/screenshots/2-container.png)
+![Container diagram](docs/assets/screenshots/3-ragworkflow.png)
+![Container diagram](docs/assets/screenshots/4-pagesequence.png)
+![Container diagram](docs/assets/screenshots/5-chatsequence.png)
+![Container diagram](docs/assets/screenshots/6-clientdatamodel.png)
 <!-- TODO: replace with your diagram -->
 
 ---
@@ -253,25 +257,24 @@ Client apps often support intent routing such as:
 ### 1) Create and activate a virtual environment
 
 ```bash
+# If you want a virvual environment named ".venv"
 python -m venv .venv
-# Windows
+# Windows - activate your virtual environment
 .venv\Scripts\activate
-# macOS/Linux
+# macOS/Linux - activate your virtual environment
 source .venv/bin/activate
 ```
 
-### 2) Install dependencies
-
-If your client repo includes a `requirements.txt`:
+### 2) Install the SyntaxMatrix Framework
+The SyntaxMatrix installation includes all the requirements you need.
 
 ```bash
-pip install -r requirements.txt
+pip install syntaxmatrix
 ```
-
-If the repo is packaged for editable installs:
+Install `requirements.txt`:
 
 ```bash
-pip install -e .
+pip freeze > requirements.txt
 ```
 
 ### 3) Run the client instance
@@ -281,11 +284,17 @@ python app.py
 ```
 
 ### 4) First run checklist (Admin setup)
-1. Open the app in your browser. 
-NB: At first launch, your instance of SyntaxMatrix will the "syntaxmatrixdir" folder amd its content in to the client project. Inside this folder you will find the "superadmin.txt" file which contains the login credentials for your SyntaxMatrix instance.
+1. Open the app in your browser. NB: At first launch, your instance of SyntaxMatrix will add the "syntaxmatrixdir" folder 
+   with all its content to the client project. Inside this folder you will find the "superadmin_credentials.txt" file.
+   Use the provide credentials to login as the CEO. You now have access to the admin panel which appears on the navbar.
 2. Sign in with the provided credentials into your superadmin account.
 3. In the Admin Panel:
-   - create a user and give it "admin" previlege. Use this admin to for most operations on your system. You can create other accounts for your staff and give different access levels. All accounts have limited access and the "admin" is the closest to the superadmin with the most access.
+   - create a user and give it "admin" previlege. 
+     Use this admin for most operations on your system. 
+     You can create other accounts for your staff and give different access levels. 
+     All accounts, except the superadmin have limited access.
+     Only the "superadmin" and "admin" have access to the admin panel and can add/edit items
+     Only the "superadmin" can remove/delete items of the admin panel.
    - configure models (LLM/Embedding) and create your team of experts (mix and match providers) per your needs
    - store / remove API keys/secrets (see next section)
    - upload system/company docs for SMPV
@@ -321,7 +330,8 @@ This model is useful for:
 ```python
 import syntaxmatrix as smx
 
-def create_conversation():
+
+def create_conversation(streaming):
 
     chat_history = smx.get_chat_history() or []
     sid = smx.get_session_id()
@@ -331,7 +341,7 @@ def create_conversation():
         query, intent = smx.get_text_input_value("user_query")
         if query == "":
             return
-
+        
         query = query.strip()
         chat_history.append(("User", query))
         sources = []
@@ -342,13 +352,19 @@ def create_conversation():
             q_vec = smx.embed_query(query)
             if q_vec is None:
                 return
-
+            
             results = []
             if intent in ["hybrid", "user_docs"]:
                 user_hits = smiv_index.search(q_vec, top_k=3)
                 if not user_hits:
-                    # smx.error("No user documents found. Please upload files.")
-                    pass
+                    if smx.enable_user_files():
+                        smx.error("""
+                            Please upload the pdf to discuss about. 
+                            Click the + button.
+                        """)
+                    else: 
+                        smx.error("Please Contact support.")
+                    return
                 results.append("\n### Personal Context (user uploads)\n")
                 for hit in user_hits:
                     text = hit["metadata"]["chunk_text"].strip().replace("\n", " ")
@@ -367,21 +383,21 @@ def create_conversation():
                 sources.append("System Docs")
 
             context = "".join(results)
-
+        
         conversations = "\n".join([f"{role}: {msg}" for role, msg in chat_history])
-
+        
         if streaming:
             smx.stream_process_query(query, context, conversations, sources)      
 
         else:
             answer = smx.process_query(query, context, conversations)
-
+        
             if isinstance(answer, str) and answer.strip():
                 if sources:
                     src_list = "".join(f"<li>{s}</li>" for s in sources)
                     answer += f"<ul style='margin-top:5px;color:blue;font-size:0.8rem;'>{src_list}</ul>"
                 chat_history.append(("Bot", answer))
-
+        
         smx.set_chat_history(chat_history)
         smx.clear_text_input_value("user_query")
 
@@ -390,7 +406,7 @@ def create_conversation():
 
 # Activate System Widgets (predefined)
 smx.text_input(key="user_query", id="user_query", label="Enter query", placeholder="Ask me anything ...")
-smx.button(key="submit_query", id="submit_query", label="Submit", callback=lambda: create_conversation())
+smx.button(key="submit_query", id="submit_query", label="Submit", callback=lambda: create_conversation(smx.stream()))
 smx.file_uploader("user_files", id="user_files", label="Upload PDF files:", accept_multiple_files=True)
 
 # Register Custom Widgets
@@ -398,7 +414,7 @@ def clear_chat():
     smx.clear_chat_history()
 
 # Call custom widget 'clear_chat' function
-smx.button("clear_chat", "clear_chat", "Clear", clear_chat)   # (key, id, label, callback fm invoking smx backend APIs)
+smx.button("clear_chat", "clear_chat", "Clear", clear_chat)
 
 
 app = smx.app
@@ -415,7 +431,7 @@ Your exact instance may expose additional helpers, but these are the core buildi
 
 #### App lifecycle
 - `smx.app`
-  - The underlying Flask app instance (used by WSGI servers such as Gunicorn).
+  - The underlying Flask app instance
 - `smx.run(...)`
   - Starts the server (development-friendly runner).
 
@@ -445,9 +461,9 @@ Your exact instance may expose additional helpers, but these are the core buildi
 - `smx.write(content: str) -> None`
   - Writes content to the UI (plain text or HTML depending on your UI mode).
 - `smx.warning(message: str) -> None`
-  - Shows a warning banner/toast/inline message.
+  - Shows a warning banner/toast/inline message - orange colour.
 - `smx.error(message: str) -> None`
-  - Shows an error banner/toast/inline message.
+  - Shows an error banner/toast/inline message - red colour.
 
 > Tip: Keep user-facing errors actionable (what to do next), and keep internal tracebacks in server logs.
 
@@ -561,9 +577,9 @@ Admins can typically:
 
 ---
 
-## Screenshots and tutorial placeholders
+## Screenshots and tutorials
 
-### Screenshots (placeholders)
+### Screenshots
 
 - Admin Panel overview  
   ![Admin Panel](docs/assets/screenshots/admin-overview.png)  
