@@ -236,15 +236,23 @@ Client apps often support intent routing such as:
 5. Model responds (streaming or not)
 6. UI updates state (chat history, widgets)
 
-**Architecture diagram**
+**Architecture Diagrams**
 
 ![Architecture diagram](docs/assets/screenshots/1-architecture.png)
+
 ![Container diagram](docs/assets/screenshots/2-container.png)
-![Container diagram](docs/assets/screenshots/3-ragworkflow.png)
-![Container diagram](docs/assets/screenshots/4-pagesequence.png)
-![Container diagram](docs/assets/screenshots/5-chatsequence.png)
-![Container diagram](docs/assets/screenshots/6-clientdatamodel.png)
-<!-- TODO: replace with your diagram -->
+
+**RAG Worflow**
+![RAG Worflow diagram](docs/assets/screenshots/3-ragworkflow.png)
+
+**Page Sequence diagram**
+![Page Sequence diagram](docs/assets/screenshots/4-pagesequence.png)
+
+**Chat Sequence diagram**
+![Chat Sequence diagram](docs/assets/screenshots/5-chatsequence.png)
+
+**Cleit Data Models diagram**
+![Cleit Data Models diagram](docs/assets/screenshots/6-clientdatamodel.png)
 
 ---
 
@@ -359,11 +367,8 @@ def create_conversation(streaming):
                 if not user_hits:
                     if smx.enable_user_files():
                         smx.error("""
-                            Please upload the pdf to discuss about. 
-                            Click the + button.
+                            Please upload the pdf to discuss about. Click the + button or contact support.
                         """)
-                    else: 
-                        smx.error("Please Contact support.")
                     return
                 results.append("\n### Personal Context (user uploads)\n")
                 for hit in user_hits:
@@ -581,36 +586,26 @@ Admins can typically:
 
 ### Screenshots
 
+#### Model Profiles
 - Admin Panel overview  
-  ![Admin Panel](docs/assets/screenshots/admin-overview.png)  
-  <!-- TODO: add screenshot -->
-
-- Page generation  
-  ![Page generation](docs/assets/screenshots/page-generation.png)  
-  <!-- TODO: add screenshot -->
-
-- Edit page canvas / drag-and-drop  
-  ![Edit canvas](docs/assets/screenshots/edit-canvas.png)  
-  <!-- TODO: add screenshot -->
+  ![Admin Panel](docs/assets/screenshots/ap-model-profiles.png)  
 
 
-- Page Studio: menu visibility + ordering  
-  ![Menu controls](docs/assets/screenshots/page-studio-menu-controls.png)  
-  <!-- TODO: add screenshot -->
+- Page generation / visibility + ordering 
+  ![Page generation](docs/assets/screenshots/ap-pages.png)  
 
-- Page Studio: media (search/upload/generate)  
-  ![Media workflow](docs/assets/screenshots/page-studio-media-workflow.png)  
-  <!-- TODO: add screenshot -->
+- Edit page canvas / drag-and-drop / media (search/upload/generate) 
+  ![Edit canvas](docs/assets/screenshots/ap-edit-canvas.png)  
 
-- Document ingestion  
-  ![Doc ingestion](docs/assets/screenshots/doc-ingestion.png)  
-  <!-- TODO: add screenshot -->
+
+- Document ingestion / branding configurations
+  ![Doc ingestion](docs/assets/screenshots/ap-system-branding.png)  
+  
 
 ### Tutorial videos (placeholders)
 
 - Getting started (Admin + first page)  
-  <!-- TODO: add video link -->
-  - Video: `https://...`
+  - Video: `https://youtube.com/watch?v=PtGH1kaWm9M`
 
 
 - Page Studio deep dive (sections, menu controls, “Read more”, and media)  
