@@ -605,7 +605,10 @@ Admins can typically:
 ### Tutorial videos (placeholders)
 
 - Getting started (Admin + first page)  
-  - Video: `https://youtube.com/watch?v=PtGH1kaWm9M`
+  - Video: https://youtube.com/watch?v=PtGH1kaWm9M
+  
+  [![Watch the Page Studio walkthrough](https://img.youtube.com/vi/PtGH1kaWm9M/hqdefault.jpg)](https://www.youtube.com/watch?v=PtGH1kaWm9M)
+
 
 
 - Page Studio deep dive (sections, menu controls, “Read more”, and media)  
