@@ -1,5 +1,4 @@
 import syntaxmatrix as smx
-from settings.app_settings import *
 
 
 def create_conversation(streaming):

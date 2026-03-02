@@ -5,10 +5,20 @@
 
 ---
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENCE)
+[![Licence: Commerial](https://img.shields.io/badge/License-Commercial-blue.svg)](LICENSE) 
+© Bob Bobga Nti
+
+---
+
 ## Table of contents
 
 - [What SyntaxMatrix is](#what-syntaxmatrix-is)
 - [Who it is for](#who-it-is-for)
+- [Licensing & Security](#-licensing--security)
+  - [smxPP Plan Comparison](#-smxPP-plan-comparison)
+  - [Security & Anti-Fraud](#-security--anti-fraud)
+  - [Licensing Summary](#-licence-summary)
 - [Why businesses choose it](#why-businesses-choose-it)
 - [Core capabilities](#core-capabilities)
 - [Page Studio](#page-studio)
@@ -23,7 +33,7 @@
   - [RAG Workflow diagram](#rag-workflow)
   - [Page Sequence diagram](#page-sequence)
   - [Chat Sequence diagram](#chat-sequence)
-  - [Clent Data Model diagram](#client-data-models)
+  - [Client Data Model diagram](#client-data-models)
 - [Install and run](#install-and-run)
 - [Secrets and API keys](#secrets-and-api-keys)
 - [Client-app development](#client-app-development)
@@ -31,23 +41,22 @@
   - [Client API reference (what you will call)](#client-api-reference-what-you-will-call)
   - [Common patterns](#common-patterns)
 - [Admin Panel guide](#admin-panel-guide)
-- [Deployment](#deployment)
-- [Screenshots and tutorial placeholders](#screenshots-and-tutorials)
-  - [Screenshots](#screenshots)
+  - [Screenshots](#admin-panel-screenshots)
     - [Model Profiles](#model-profiles)
     - [Page generation and visibility](#page-generation-and-visibility)
     - [Edit page](#edit-page)
     - [System docs and Branding](#system-docs-and-branding)
-  - [Tutorial Videos](#tutorial-videos)
-  - [Getting started](#getting-started)
+  - [Admin Walkthrough Videos](#admin-walkthrough-videos)
+    - [Getting Started](#getting-started)
+- [ML Lab Overview](#ml-lab-overview)
+  - [Screenshots](#ml-lab-screenshots)
+  - [ML Lab Videos](#ml-lab-videos)
+- [Getting started](#getting-started)
 - [Troubleshooting](#troubleshooting)
 - [Support and extensions](#support-and-extensions)
+- [MSc Research](#ecrag)
 ---
 
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-
----
 
 ## What SyntaxMatrix is
 
@@ -73,8 +82,57 @@ In short: SyntaxMatrix is the “platform builder” behind many client‑brande
 
 ---
 
-## Who it is for
+## 🔒 Licensing & Security
+SyntaxMatrix follows an open-core commercial model designed for enterprise adoption, legal clarity, and long-term sustainability.
 
+#### Open-Source Core (MIT)
+The **SyntaxMatrix Platform Provisioner (smxSPP)** core is released under the MIT Licence.
+This includes:
+- application scaffolding and provisioning logic
+- Admin Panel infrastructure
+- Page Studio workflows
+- RAG pipelines (SMIV / SMPV architecture)
+- deployment and runtime utilities
+
+This ensures:
+- low adoption friction
+- transparency
+- compatibility with enterprise legal requirements
+
+#### Commercial Features (Paid)
+Advanced capabilities require a **paid subscription** and are governed by the SyntaxMatrix Commercial Licence:
+- production licensing & entitlement enforcement
+- subscription lifecycle management
+- enterprise limits and controls
+- advanced operational safeguards
+
+Commercial features are enforced **technically** and **legally**.
+
+### 🧾 smxPP Plan Comparison
+![RAG Worflow diagram](docs/assets/screenshots/plan-compare.png)
+
+### 🧠 Security & Anti-Fraud
+SyntaxMatrix was designed with anti-fraud and investor protection as first-class concerns:
+- Licences are instance-bound and cryptographically signed
+- Entitlements cannot be reused across deployments
+- Subscriptions are validated independently of client infrastructure
+- Clients cannot “self-declare” premium status
+- Cancellation and payment failures propagate reliably
+
+This ensures:
+- predictable recurring revenue
+- strong enterprise trust
+- reduced risk of licence abuse
+
+### 📄 Licence Summary
+- Open-source components: MIT Licence
+- Commercial features: SyntaxMatrix Commercial Licence
+
+<a href="/page/commercial-licence">See COMMERCIAL_LICENSE.md for full terms>.</a>
+
+---
+
+## Who it is for
 ### Primary audience
 - **Software / AI engineering teams** building internal or customer-facing AI platforms
 - **Businesses** who want to own and control their AI platform rather than being locked into a single vendor SaaS
@@ -265,28 +323,25 @@ Client apps often support intent routing such as:
 ---
 
 ### RAG Workflow
-**RAG Worflow**
 
 ![RAG Worflow diagram](docs/assets/screenshots/3-ragworkflow.png)
 
 ---
 
-### Page Sequence
-**Page Sequence diagram**
+### Page Sequence diagram
 
 ![Page Sequence diagram](docs/assets/screenshots/4-pagesequence.png)
 
 ---
 
-### Chat Sequence 
-**Chat Sequence diagram**
+### Chat Sequence diagram
 
 ![Chat Sequence diagram](docs/assets/screenshots/5-chatsequence.png)
 
 ---
 
-### Client Data Models
-**Client Data Models diagram**
+### Client Data Models diagram
+
 ![Cleit Data Models diagram](docs/assets/screenshots/6-clientdatamodel.png)
 
 ---
@@ -467,7 +522,6 @@ app = smx.app
 if __name__ == "__main__":
     smx.run()
 ```
-
 ---
 
 ### Client API reference (what you will call)
@@ -601,58 +655,30 @@ Admins can typically:
 
 ---
 
-## Deployment
+## Admin Panel Guide
 
-### Development
-- Run `python app.py` (or `smx.run()`) locally.
-- Use a `.venv` and pinned requirements.
+### Admin Panel Screenshots
 
-### Production (typical)
-- **Gunicorn**:
-  ```bash
-  gunicorn app:app --workers 2 --bind 0.0.0.0:8000
-  ```
-- **Docker**:
-  - Build an image for the client instance.
-  - Mount the workspace directory as a persistent volume.
-- **Cloud Run / VM**:
-  - Keep the workspace directory persistent.
-  - Apply network controls around the Admin Panel.
-
-> If you run multiple client instances, ensure each instance has its own isolated workspace directory and database.
-
----
-
-## Screenshots and tutorials
-
-### Screenshots
-
-#### Model Profiles
-- Admin Panel overview  
+#### Model Profiles 
   ![Admin Panel](docs/assets/screenshots/ap-model-profiles.png)  
 
 
 #### Page generation and visibility
-- Page generation, visibility + ordering 
   ![Page generation](docs/assets/screenshots/ap-pages.png)  
 
 
 #### Edit page
-- Edit page canvas / drag-and-drop / media (search/upload/generate) 
   ![Edit canvas](docs/assets/screenshots/ap-edit-canvas.png)  
 
 
 #### System docs and branding
-- Document ingestion / branding configurations
   ![Doc ingestion](docs/assets/screenshots/ap-system-branding.png)  
   
 
-### Tutorial videos
+<!-- ### Admin Walkthrough Videos
 
 #### Getting started 
-
-  [![Watch the Page Studio walkthrough](https://img.youtube.com/vi/PtGH1kaWm9M/hqdefault.jpg)](https://www.youtube.com/watch?v=PtGH1kaWm9M)
-
+  [![Getting started](https://img.youtube.com/vi/PtGH1kaWm9M/hqdefault.jpg)](https://www.youtube.com/watch?v=PtGH1kaWm9M) -->
 
 
 #### Page Studio deep dive (sections, menu controls, “Read more”, and media)  
@@ -666,12 +692,25 @@ Admins can typically:
 ---
 
 
+<!-- <details>
+  <summary><strong>Q001 — Linear Regression on Housing</strong></summary>
+
+  **Question**
+  <!-- include the question text here (or paste from question.md) -->
+
+  **Result (HTML report)**
+  - Open: docs/assets/mlearning/001/result.html
+
+  <div data-smx-ml-iframe="docs/assets/mlearning/001/result.html" data-smx-ml-height="780"></div>
+</details> -->
+
+
 ## Troubleshooting
 
 ### “No system documents found” / retrieval returns empty
 - Confirm system documents were uploaded and indexed in the Admin Panel.
 - Confirm embeddings/provider configuration is set.
-- Confirm your query intent is `system_docs` or `hybrid`.
+- Confirm your query router (intent) is `system_docs` or `hybrid`.
 
 ### Streaming not working
 - Verify your UI has streaming enabled (toggle or default).
@@ -707,8 +746,8 @@ Common extension points:
 
 ---
 
+### ECRAG
+![Admin Panel](docs/assets/screenshots/ecrag_article.png)  
+[Read full article](docs/assets/Research_Project_Report.pdf)
 
-## License
-
-MIT © Bob Bobga Nti
-
+---

@@ -1,0 +1,16 @@
+# Exclude your local Python venv
+venv/
+.venv/
+*.venv
+.env
+*.env
+# Exclude local Dockerfile build artefacts, caches
+*.tar
+*.tgz
+__pycache__/
+*.pyc
+# Exclude your syntaxmatrix data dir if you're binding it at runtime instead
+# syntaxmatrixdir
+# Git metadata
+.git/
+.gitignore

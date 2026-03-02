@@ -1,0 +1,5 @@
+FROM python:3.11-slim
+WORKDIR /app
+COPY vendor_lib /app/vendor_lib
+ENV PYTHONPATH="/app/vendor_lib"
+CMD ["python", "-c", "import syntaxmatrix; print(syntaxmatrix.__file__)"]
